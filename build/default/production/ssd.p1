@@ -1,0 +1,241 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"43 ./io.h
+[; ;./io.h: 43: void digitalWrite(int pin, int value);
+[v _digitalWrite `(v ~T0 @X0 0 ef2`i`i ]
+"54 ssd.c
+[; ;ssd.c: 54:     digitalWrite(PIN_D0,0);
+[c E7 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 .. ]
+[n E7 pin_label PIN_A0 PIN_A1 PIN_A2 PIN_A3 PIN_A4 PIN_A5 PIN_A6 PIN_A7 PIN_B0 PIN_B1 PIN_B2 PIN_B3 PIN_B4 PIN_B5 PIN_B6 PIN_B7 PIN_C0 PIN_C1 PIN_C2 PIN_C3 PIN_C4 PIN_C5 PIN_C6 PIN_C7 PIN_D0 PIN_D1 PIN_D2 PIN_D3 PIN_D4 PIN_D5 PIN_D6 PIN_D7 PIN_E0 PIN_E1 PIN_E2 PIN_E3 PIN_E4 PIN_E5 PIN_E6 PIN_E7  ]
+"5 ./so.h
+[; ;./so.h: 5:  void soWrite(int value);
+[v _soWrite `(v ~T0 @X0 0 ef1`i ]
+"45 ./io.h
+[; ;./io.h: 45: void pinMode(int pin, int type);
+[v _pinMode `(v ~T0 @X0 0 ef2`i`i ]
+"4 ./so.h
+[; ;./so.h: 4:  void soInit (void);
+[v _soInit `(v ~T0 @X0 0 ef ]
+"28 ssd.c
+[; ;ssd.c: 28: static const char valor[] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F, 0x77, 0x7C, 0x39, 0x5E, 0x79, 0x71};
+[v _valor `Cuc ~T0 @X0 -> 16 `i s ]
+[i _valor
+:U ..
+-> -> 63 `i `uc
+-> -> 6 `i `uc
+-> -> 91 `i `uc
+-> -> 79 `i `uc
+-> -> 102 `i `uc
+-> -> 109 `i `uc
+-> -> 125 `i `uc
+-> -> 7 `i `uc
+-> -> 127 `i `uc
+-> -> 111 `i `uc
+-> -> 119 `i `uc
+-> -> 124 `i `uc
+-> -> 57 `i `uc
+-> -> 94 `i `uc
+-> -> 121 `i `uc
+-> -> 113 `i `uc
+..
+]
+"30
+[; ;ssd.c: 30: static char display;
+[v _display `uc ~T0 @X0 1 s ]
+"32
+[; ;ssd.c: 32: static char v0, v1, v2, v3;
+[v _v0 `uc ~T0 @X0 1 s ]
+[v _v1 `uc ~T0 @X0 1 s ]
+[v _v2 `uc ~T0 @X0 1 s ]
+[v _v3 `uc ~T0 @X0 1 s ]
+"34
+[; ;ssd.c: 34: void ssdDigit(char val, char pos) {
+[v _ssdDigit `(v ~T0 @X0 1 ef2`uc`uc ]
+{
+[e :U _ssdDigit ]
+[v _val `uc ~T0 @X0 1 r1 ]
+[v _pos `uc ~T0 @X0 1 r2 ]
+[f ]
+"35
+[; ;ssd.c: 35:     if (pos == 0) {
+[e $ ! == -> _pos `i -> 0 `i 2  ]
+{
+"36
+[; ;ssd.c: 36:         v0 = val;
+[e = _v0 _val ]
+"37
+[; ;ssd.c: 37:     }
+}
+[e :U 2 ]
+"38
+[; ;ssd.c: 38:     if (pos == 1) {
+[e $ ! == -> _pos `i -> 1 `i 3  ]
+{
+"39
+[; ;ssd.c: 39:         v1 = val;
+[e = _v1 _val ]
+"40
+[; ;ssd.c: 40:     }
+}
+[e :U 3 ]
+"41
+[; ;ssd.c: 41:     if (pos == 2) {
+[e $ ! == -> _pos `i -> 2 `i 4  ]
+{
+"42
+[; ;ssd.c: 42:         v2 = val;
+[e = _v2 _val ]
+"43
+[; ;ssd.c: 43:     }
+}
+[e :U 4 ]
+"44
+[; ;ssd.c: 44:     if (pos == 3) {
+[e $ ! == -> _pos `i -> 3 `i 5  ]
+{
+"45
+[; ;ssd.c: 45:         v3 = val;
+[e = _v3 _val ]
+"46
+[; ;ssd.c: 46:     }
+}
+[e :U 5 ]
+"48
+[; ;ssd.c: 48: }
+[e :UE 1 ]
+}
+"50
+[; ;ssd.c: 50: void ssdUpdate(void) {
+[v _ssdUpdate `(v ~T0 @X0 1 ef ]
+{
+[e :U _ssdUpdate ]
+[f ]
+"54
+[; ;ssd.c: 54:     digitalWrite(PIN_D0,0);
+[e ( _digitalWrite (2 , . `E7 24 -> 0 `i ]
+"55
+[; ;ssd.c: 55:     digitalWrite(PIN_D1,0);
+[e ( _digitalWrite (2 , . `E7 25 -> 0 `i ]
+"56
+[; ;ssd.c: 56:     digitalWrite(PIN_D2,0);
+[e ( _digitalWrite (2 , . `E7 26 -> 0 `i ]
+"57
+[; ;ssd.c: 57:     digitalWrite(PIN_D3,0);
+[e ( _digitalWrite (2 , . `E7 27 -> 0 `i ]
+"60
+[; ;ssd.c: 60:     soWrite(0x00);
+[e ( _soWrite (1 -> 0 `i ]
+"62
+[; ;ssd.c: 62:     switch (display)
+[e $U 8  ]
+"63
+[; ;ssd.c: 63:     {
+{
+"64
+[; ;ssd.c: 64:         case 0:
+[e :U 9 ]
+"65
+[; ;ssd.c: 65:             soWrite(valor[v0]);
+[e ( _soWrite (1 -> *U + &U _valor * -> _v0 `ux -> -> # *U &U _valor `ui `ux `i ]
+"66
+[; ;ssd.c: 66:             digitalWrite(PIN_D0,1);
+[e ( _digitalWrite (2 , . `E7 24 -> 1 `i ]
+"67
+[; ;ssd.c: 67:             display = 1;
+[e = _display -> -> 1 `i `uc ]
+"68
+[; ;ssd.c: 68:             break;
+[e $U 7  ]
+"70
+[; ;ssd.c: 70:         case 1:
+[e :U 10 ]
+"71
+[; ;ssd.c: 71:             soWrite(valor[v1]);
+[e ( _soWrite (1 -> *U + &U _valor * -> _v1 `ux -> -> # *U &U _valor `ui `ux `i ]
+"72
+[; ;ssd.c: 72:             digitalWrite(PIN_D1,1);
+[e ( _digitalWrite (2 , . `E7 25 -> 1 `i ]
+"73
+[; ;ssd.c: 73:             display = 2;
+[e = _display -> -> 2 `i `uc ]
+"74
+[; ;ssd.c: 74:             break;
+[e $U 7  ]
+"76
+[; ;ssd.c: 76:         case 2:
+[e :U 11 ]
+"77
+[; ;ssd.c: 77:             soWrite(valor[v2]);
+[e ( _soWrite (1 -> *U + &U _valor * -> _v2 `ux -> -> # *U &U _valor `ui `ux `i ]
+"78
+[; ;ssd.c: 78:             digitalWrite(PIN_D2,1);
+[e ( _digitalWrite (2 , . `E7 26 -> 1 `i ]
+"79
+[; ;ssd.c: 79:             display = 3;
+[e = _display -> -> 3 `i `uc ]
+"80
+[; ;ssd.c: 80:             break;
+[e $U 7  ]
+"82
+[; ;ssd.c: 82:         case 3:
+[e :U 12 ]
+"83
+[; ;ssd.c: 83:             soWrite(valor[v3]);
+[e ( _soWrite (1 -> *U + &U _valor * -> _v3 `ux -> -> # *U &U _valor `ui `ux `i ]
+"84
+[; ;ssd.c: 84:             digitalWrite(PIN_D3,1);
+[e ( _digitalWrite (2 , . `E7 27 -> 1 `i ]
+"85
+[; ;ssd.c: 85:             display = 0;
+[e = _display -> -> 0 `i `uc ]
+"86
+[; ;ssd.c: 86:             break;
+[e $U 7  ]
+"88
+[; ;ssd.c: 88:         default:
+[e :U 13 ]
+"89
+[; ;ssd.c: 89:             display = 0;
+[e = _display -> -> 0 `i `uc ]
+"90
+[; ;ssd.c: 90:             break;
+[e $U 7  ]
+"91
+[; ;ssd.c: 91:     }
+}
+[e $U 7  ]
+[e :U 8 ]
+[e [\ -> _display `i , $ -> 0 `i 9
+ , $ -> 1 `i 10
+ , $ -> 2 `i 11
+ , $ -> 3 `i 12
+ 13 ]
+[e :U 7 ]
+"92
+[; ;ssd.c: 92: }
+[e :UE 6 ]
+}
+"94
+[; ;ssd.c: 94: void ssdInit(void) {
+[v _ssdInit `(v ~T0 @X0 1 ef ]
+{
+[e :U _ssdInit ]
+[f ]
+"96
+[; ;ssd.c: 96:     pinMode(PIN_D0, 0);
+[e ( _pinMode (2 , . `E7 24 -> 0 `i ]
+"97
+[; ;ssd.c: 97:     pinMode(PIN_D1, 0);
+[e ( _pinMode (2 , . `E7 25 -> 0 `i ]
+"98
+[; ;ssd.c: 98:     pinMode(PIN_D2, 0);
+[e ( _pinMode (2 , . `E7 26 -> 0 `i ]
+"99
+[; ;ssd.c: 99:     pinMode(PIN_D3, 0);
+[e ( _pinMode (2 , . `E7 27 -> 0 `i ]
+"102
+[; ;ssd.c: 102:     soInit();
+[e ( _soInit ..  ]
+"104
+[; ;ssd.c: 104: }
+[e :UE 14 ]
+}

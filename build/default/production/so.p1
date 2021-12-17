@@ -1,0 +1,106 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"45 ./io.h
+[; ;./io.h: 45: void pinMode(int pin, int type);
+[v _pinMode `(v ~T0 @X0 0 ef2`i`i ]
+"4 so.c
+[; ;so.c: 4:  pinMode(PIN_D7, 0);
+[c E2 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 .. ]
+[n E2 pin_label PIN_A0 PIN_A1 PIN_A2 PIN_A3 PIN_A4 PIN_A5 PIN_A6 PIN_A7 PIN_B0 PIN_B1 PIN_B2 PIN_B3 PIN_B4 PIN_B5 PIN_B6 PIN_B7 PIN_C0 PIN_C1 PIN_C2 PIN_C3 PIN_C4 PIN_C5 PIN_C6 PIN_C7 PIN_D0 PIN_D1 PIN_D2 PIN_D3 PIN_D4 PIN_D5 PIN_D6 PIN_D7 PIN_E0 PIN_E1 PIN_E2 PIN_E3 PIN_E4 PIN_E5 PIN_E6 PIN_E7  ]
+"43 ./io.h
+[; ;./io.h: 43: void digitalWrite(int pin, int value);
+[v _digitalWrite `(v ~T0 @X0 0 ef2`i`i ]
+"3 so.c
+[; ;so.c: 3: void soInit(void) {
+[v _soInit `(v ~T0 @X0 1 ef ]
+{
+[e :U _soInit ]
+[f ]
+"4
+[; ;so.c: 4:  pinMode(PIN_D7, 0);
+[e ( _pinMode (2 , . `E2 31 -> 0 `i ]
+"5
+[; ;so.c: 5:  pinMode(PIN_B0, 0);
+[e ( _pinMode (2 , . `E2 8 -> 0 `i ]
+"6
+[; ;so.c: 6:  pinMode(PIN_D6, 0);
+[e ( _pinMode (2 , . `E2 30 -> 0 `i ]
+"7
+[; ;so.c: 7: }
+[e :UE 1 ]
+}
+"9
+[; ;so.c: 9: void PulseEnClock(void){
+[v _PulseEnClock `(v ~T0 @X0 1 ef ]
+{
+[e :U _PulseEnClock ]
+[f ]
+"10
+[; ;so.c: 10:  digitalWrite(PIN_D7, 1);
+[e ( _digitalWrite (2 , . `E2 31 -> 1 `i ]
+"11
+[; ;so.c: 11:  digitalWrite(PIN_D7, 0);
+[e ( _digitalWrite (2 , . `E2 31 -> 0 `i ]
+"12
+[; ;so.c: 12: }
+[e :UE 2 ]
+}
+"14
+[; ;so.c: 14: void PulseClockData(void){
+[v _PulseClockData `(v ~T0 @X0 1 ef ]
+{
+[e :U _PulseClockData ]
+[f ]
+"15
+[; ;so.c: 15:  digitalWrite(PIN_B0, 1);
+[e ( _digitalWrite (2 , . `E2 8 -> 1 `i ]
+"16
+[; ;so.c: 16:  digitalWrite(PIN_B0, 0);
+[e ( _digitalWrite (2 , . `E2 8 -> 0 `i ]
+"17
+[; ;so.c: 17: }
+[e :UE 3 ]
+}
+"18
+[; ;so.c: 18: void soWrite(int value) {
+[v _soWrite `(v ~T0 @X0 1 ef1`i ]
+{
+[e :U _soWrite ]
+[v _value `i ~T0 @X0 1 r1 ]
+[f ]
+"19
+[; ;so.c: 19:  char i;
+[v _i `uc ~T0 @X0 1 a ]
+"20
+[; ;so.c: 20:  digitalWrite(PIN_B0, 0);
+[e ( _digitalWrite (2 , . `E2 8 -> 0 `i ]
+"21
+[; ;so.c: 21:  for (i = 0; i < 8; i++) {
+{
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 8 `i 5  ]
+[e $U 6  ]
+[e :U 5 ]
+{
+"22
+[; ;so.c: 22:   digitalWrite(PIN_D6, value & 0x80);
+[e ( _digitalWrite (2 , . `E2 30 & _value -> 128 `i ]
+"23
+[; ;so.c: 23:   PulseClockData();
+[e ( _PulseClockData ..  ]
+"24
+[; ;so.c: 24:   value <<= 1;
+[e =<< _value -> 1 `i ]
+"25
+[; ;so.c: 25:  }
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 8 `i 5  ]
+[e :U 6 ]
+}
+"26
+[; ;so.c: 26:  PulseEnClock();
+[e ( _PulseEnClock ..  ]
+"27
+[; ;so.c: 27: }
+[e :UE 4 ]
+}

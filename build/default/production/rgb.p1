@@ -1,0 +1,189 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"43 ./io.h
+[; ;./io.h: 43: void digitalWrite(int pin, int value);
+[v _digitalWrite `(v ~T0 @X0 0 ef2`i`i ]
+"5 rgb.c
+[; ;rgb.c: 5:   digitalWrite(PIN_D0, 1);
+[c E2 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 .. ]
+[n E2 pin_label PIN_A0 PIN_A1 PIN_A2 PIN_A3 PIN_A4 PIN_A5 PIN_A6 PIN_A7 PIN_B0 PIN_B1 PIN_B2 PIN_B3 PIN_B4 PIN_B5 PIN_B6 PIN_B7 PIN_C0 PIN_C1 PIN_C2 PIN_C3 PIN_C4 PIN_C5 PIN_C6 PIN_C7 PIN_D0 PIN_D1 PIN_D2 PIN_D3 PIN_D4 PIN_D5 PIN_D6 PIN_D7 PIN_E0 PIN_E1 PIN_E2 PIN_E3 PIN_E4 PIN_E5 PIN_E6 PIN_E7  ]
+"45 ./io.h
+[; ;./io.h: 45: void pinMode(int pin, int type);
+[v _pinMode `(v ~T0 @X0 0 ef2`i`i ]
+"3 rgb.c
+[; ;rgb.c: 3: void rgbColor(int led) {
+[v _rgbColor `(v ~T0 @X0 1 ef1`i ]
+{
+[e :U _rgbColor ]
+[v _led `i ~T0 @X0 1 r1 ]
+[f ]
+"4
+[; ;rgb.c: 4:  if (led & 1) {
+[e $ ! != & _led -> 1 `i -> 0 `i 2  ]
+{
+"5
+[; ;rgb.c: 5:   digitalWrite(PIN_D0, 1);
+[e ( _digitalWrite (2 , . `E2 24 -> 1 `i ]
+"6
+[; ;rgb.c: 6:  } else {
+}
+[e $U 3  ]
+[e :U 2 ]
+{
+"7
+[; ;rgb.c: 7:   digitalWrite(PIN_D0, 0);
+[e ( _digitalWrite (2 , . `E2 24 -> 0 `i ]
+"8
+[; ;rgb.c: 8:  }
+}
+[e :U 3 ]
+"9
+[; ;rgb.c: 9:  if (led & 2) {
+[e $ ! != & _led -> 2 `i -> 0 `i 4  ]
+{
+"10
+[; ;rgb.c: 10:   digitalWrite(PIN_D1, 1);
+[e ( _digitalWrite (2 , . `E2 25 -> 1 `i ]
+"11
+[; ;rgb.c: 11:  } else {
+}
+[e $U 5  ]
+[e :U 4 ]
+{
+"12
+[; ;rgb.c: 12:   digitalWrite(PIN_D1, 0);
+[e ( _digitalWrite (2 , . `E2 25 -> 0 `i ]
+"13
+[; ;rgb.c: 13:  }
+}
+[e :U 5 ]
+"14
+[; ;rgb.c: 14:  if (led & 4) {
+[e $ ! != & _led -> 4 `i -> 0 `i 6  ]
+{
+"15
+[; ;rgb.c: 15:   digitalWrite(PIN_D2, 1);
+[e ( _digitalWrite (2 , . `E2 26 -> 1 `i ]
+"16
+[; ;rgb.c: 16:  } else {
+}
+[e $U 7  ]
+[e :U 6 ]
+{
+"17
+[; ;rgb.c: 17:   digitalWrite(PIN_D2, 0);
+[e ( _digitalWrite (2 , . `E2 26 -> 0 `i ]
+"18
+[; ;rgb.c: 18:  }
+}
+[e :U 7 ]
+"19
+[; ;rgb.c: 19: }
+[e :UE 1 ]
+}
+"21
+[; ;rgb.c: 21: void turnOn(int led) {
+[v _turnOn `(v ~T0 @X0 1 ef1`i ]
+{
+[e :U _turnOn ]
+[v _led `i ~T0 @X0 1 r1 ]
+[f ]
+"22
+[; ;rgb.c: 22:  if (led & 1) {
+[e $ ! != & _led -> 1 `i -> 0 `i 9  ]
+{
+"23
+[; ;rgb.c: 23:   digitalWrite(PIN_D0, 1);
+[e ( _digitalWrite (2 , . `E2 24 -> 1 `i ]
+"24
+[; ;rgb.c: 24:  }
+}
+[e :U 9 ]
+"25
+[; ;rgb.c: 25:  if (led & 2) {
+[e $ ! != & _led -> 2 `i -> 0 `i 10  ]
+{
+"26
+[; ;rgb.c: 26:   digitalWrite(PIN_D1, 1);
+[e ( _digitalWrite (2 , . `E2 25 -> 1 `i ]
+"27
+[; ;rgb.c: 27:  }
+}
+[e :U 10 ]
+"28
+[; ;rgb.c: 28:  if (led & 4) {
+[e $ ! != & _led -> 4 `i -> 0 `i 11  ]
+{
+"29
+[; ;rgb.c: 29:   digitalWrite(PIN_D2, 1);
+[e ( _digitalWrite (2 , . `E2 26 -> 1 `i ]
+"30
+[; ;rgb.c: 30:  }
+}
+[e :U 11 ]
+"31
+[; ;rgb.c: 31: }
+[e :UE 8 ]
+}
+"33
+[; ;rgb.c: 33: void turnOff(int led) {
+[v _turnOff `(v ~T0 @X0 1 ef1`i ]
+{
+[e :U _turnOff ]
+[v _led `i ~T0 @X0 1 r1 ]
+[f ]
+"34
+[; ;rgb.c: 34:  if (led & 1) {
+[e $ ! != & _led -> 1 `i -> 0 `i 13  ]
+{
+"35
+[; ;rgb.c: 35:   digitalWrite(PIN_D0, 0);
+[e ( _digitalWrite (2 , . `E2 24 -> 0 `i ]
+"36
+[; ;rgb.c: 36:  }
+}
+[e :U 13 ]
+"37
+[; ;rgb.c: 37:  if (led & 2) {
+[e $ ! != & _led -> 2 `i -> 0 `i 14  ]
+{
+"38
+[; ;rgb.c: 38:   digitalWrite(PIN_D1, 0);
+[e ( _digitalWrite (2 , . `E2 25 -> 0 `i ]
+"39
+[; ;rgb.c: 39:  }
+}
+[e :U 14 ]
+"40
+[; ;rgb.c: 40:  if (led & 4) {
+[e $ ! != & _led -> 4 `i -> 0 `i 15  ]
+{
+"41
+[; ;rgb.c: 41:   digitalWrite(PIN_D2, 0);
+[e ( _digitalWrite (2 , . `E2 26 -> 0 `i ]
+"42
+[; ;rgb.c: 42:  }
+}
+[e :U 15 ]
+"43
+[; ;rgb.c: 43: }
+[e :UE 12 ]
+}
+"45
+[; ;rgb.c: 45: void rgbInit(void) {
+[v _rgbInit `(v ~T0 @X0 1 ef ]
+{
+[e :U _rgbInit ]
+[f ]
+"46
+[; ;rgb.c: 46:  pinMode(PIN_D0, 0);
+[e ( _pinMode (2 , . `E2 24 -> 0 `i ]
+"47
+[; ;rgb.c: 47:  pinMode(PIN_D1, 0);
+[e ( _pinMode (2 , . `E2 25 -> 0 `i ]
+"48
+[; ;rgb.c: 48:  pinMode(PIN_D2, 0);
+[e ( _pinMode (2 , . `E2 26 -> 0 `i ]
+"49
+[; ;rgb.c: 49: }
+[e :UE 16 ]
+}
