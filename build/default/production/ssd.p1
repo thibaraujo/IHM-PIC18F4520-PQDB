@@ -136,9 +136,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 "65
 [; ;ssd.c: 65:             soWrite(valor[v0]);
 [e ( _soWrite (1 -> *U + &U _valor * -> _v0 `ux -> -> # *U &U _valor `ui `ux `i ]
-"66
-[; ;ssd.c: 66:             digitalWrite(PIN_D0,1);
-[e ( _digitalWrite (2 , . `E7 24 -> 1 `i ]
 "67
 [; ;ssd.c: 67:             display = 1;
 [e = _display -> -> 1 `i `uc ]
@@ -151,9 +148,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 "71
 [; ;ssd.c: 71:             soWrite(valor[v1]);
 [e ( _soWrite (1 -> *U + &U _valor * -> _v1 `ux -> -> # *U &U _valor `ui `ux `i ]
-"72
-[; ;ssd.c: 72:             digitalWrite(PIN_D1,1);
-[e ( _digitalWrite (2 , . `E7 25 -> 1 `i ]
 "73
 [; ;ssd.c: 73:             display = 2;
 [e = _display -> -> 2 `i `uc ]

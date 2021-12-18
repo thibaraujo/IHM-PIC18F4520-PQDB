@@ -77,13 +77,13 @@ void ssdUpdate(void) {
     {
         case 0:
             soWrite(valor[v0]);
-            digitalWrite(PIN_D0,1);
+
             display = 1;
             break;
 
         case 1:
             soWrite(valor[v1]);
-            digitalWrite(PIN_D1,1);
+
             display = 2;
             break;
 

@@ -8,8 +8,6 @@ serial.h  \
 keypad.h  \
 menu.h  \
 rgb.h  \
-ssd.h  \
 timer.h  \
 pwm.h  \
-adc.h  \
 io.h 

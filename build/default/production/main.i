@@ -10,6 +10,8 @@
 
 
 
+
+
 # 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\proc/pic18f4520.h" 1 3
 # 44 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\proc/pic18f4520.h" 3
 # 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\__at.h" 1 3
@@ -4358,7 +4360,7 @@ extern volatile __bit nWR __attribute__((address(0x7C21)));
 
 
 extern volatile __bit nWRITE __attribute__((address(0x7E3A)));
-# 4 "main.c" 2
+# 6 "main.c" 2
 
 # 1 "./config.h" 1
 # 26 "./config.h"
@@ -4399,17 +4401,17 @@ extern volatile __bit nWRITE __attribute__((address(0x7E3A)));
 #pragma config EBTR2 = OFF
 #pragma config EBTR3 = OFF
 #pragma config EBTRB = OFF
-# 5 "main.c" 2
+# 7 "main.c" 2
 
 # 1 "./bits.h" 1
-# 6 "main.c" 2
+# 8 "main.c" 2
 
 # 1 "./delay.h" 1
 
 
 
 void tempo(unsigned char tempX);
-# 7 "main.c" 2
+# 9 "main.c" 2
 
 # 1 "./lcd.h" 1
 
@@ -4420,14 +4422,14 @@ void tempo(unsigned char tempX);
   void lcdNumber(int value);
   void lcdPosition(int line, int col);
   void lcdInit(void);
-# 8 "main.c" 2
+# 10 "main.c" 2
 
 # 1 "./serial.h" 1
 # 23 "./serial.h"
  void serialSend(unsigned char c);
  unsigned char serialRead(void);
  void serialInit(void);
-# 9 "main.c" 2
+# 11 "main.c" 2
 
 # 1 "./keypad.h" 1
 
@@ -4436,7 +4438,7 @@ void tempo(unsigned char tempX);
     char kpReadKey(void);
  void kpDebounce(void);
  void kpInit(void);
-# 10 "main.c" 2
+# 12 "main.c" 2
 
 # 1 "./menu.h" 1
 
@@ -4447,7 +4449,7 @@ void menu1(char subMenu);
 void menu2(char subMenu);
 void menu3(char subMenu);
 void menuCtrl(char menuNum, char subMenu);
-# 11 "main.c" 2
+# 13 "main.c" 2
 
 # 1 "./rgb.h" 1
 # 20 "./rgb.h"
@@ -4455,14 +4457,7 @@ void menuCtrl(char menuNum, char subMenu);
  void turnOn(int led);
  void turnOff(int led);
  void rgbInit(void);
-# 12 "main.c" 2
-
-# 1 "./ssd.h" 1
-# 22 "./ssd.h"
- void ssdDigit(char val, char pos);
- void ssdUpdate(void);
- void ssdInit(void);
-# 13 "main.c" 2
+# 14 "main.c" 2
 
 # 1 "./timer.h" 1
 # 23 "./timer.h"
@@ -4471,19 +4466,13 @@ void menuCtrl(char menuNum, char subMenu);
 
  void timerReset(unsigned int tempo);
  void timerInit(void);
-# 14 "main.c" 2
+# 15 "main.c" 2
 
 # 1 "./pwm.h" 1
 # 23 "./pwm.h"
  void pwmSet(unsigned char porcento);
  void pwmFrequency(unsigned int freq);
  void pwmInit(void);
-# 15 "main.c" 2
-
-# 1 "./adc.h" 1
-# 22 "./adc.h"
- void adcInit(void);
- int adcRead(unsigned int channel);
 # 16 "main.c" 2
 
 # 1 "./io.h" 1
@@ -4500,11 +4489,10 @@ void digitalWrite(int pin, int value);
 int digitalRead(int pin);
 void pinMode(int pin, int type);
 # 17 "main.c" 2
-# 27 "main.c"
+# 30 "main.c"
 char menuNum = 1, subMenu = 1;
 unsigned int pres = 15, temp = 250;
 unsigned char lev = 80;
-char flag;
 
 void InfBoiler(void) {
     char cmd = serialRead();
@@ -4518,7 +4506,7 @@ void InfBoiler(void) {
 
             case 't':
                 serialSend('p');
-                if (temp >= 0) {
+                if (temp > 0) {
                     temp--;
                 }
                 break;
@@ -4530,7 +4518,7 @@ void InfBoiler(void) {
 
             case 'p':
                 serialSend('p');
-                if (pres >= 0) {
+                if (pres > 0) {
                     pres--;
                 }
                 break;
@@ -4538,7 +4526,7 @@ void InfBoiler(void) {
 
             case 'N':
                 serialSend('N');
-                if (lev >= 0) {
+                if (lev > 0) {
                     lev--;
                 }
                 break;
@@ -4551,38 +4539,24 @@ void InfBoiler(void) {
 }
 
 void status(void) {
-    if (pres > 20 || temp > 300) {
-
-        digitalWrite(PIN_D0,1);
-        ssdDigit(84, 0);
+    if (pres > 20 || temp > 300 || lev == 0) {
+        PORTD = 0b00000001;
         pwmSet(100);
     } else {
         pwmSet(0);
-
         PORTD = 0b00000010;
     }
 }
 
-void vap(void) {
-    int v;
-    v = 15;
-
-    ssdDigit((v / 10) % 10, 2);
-    ssdDigit((v / 1) % 10, 3);
-}
-
 void main() {
-
     TRISD = 0x00;
-    char slot = 0;
+    char slot = 0, i;
 
     lcdInit();
     kpInit();
     serialInit();
     pwmInit();
     timerInit();
-    ssdInit();
-
 
     pwmSet(0);
     lcdString("Iniciando...");
@@ -4591,13 +4565,7 @@ void main() {
     lcdCommand(0x01);
 
     for (;;) {
-
-        digitalWrite(PIN_D0, 0);
-        digitalWrite(PIN_D1, 0);
-        digitalWrite(PIN_D2, 0);
-        digitalWrite(PIN_D3, 0);
-
-        timerReset(6500);
+        timerReset(3000);
         switch (slot) {
             case 0:
                 leituraMenu();
@@ -4633,21 +4601,13 @@ void main() {
 
             case 3:
                 status();
-                slot = 4;
-                break;
-
-            case 4:
-                if (flag == 1) {
-                    vap();
-                }
                 slot = 0;
                 break;
 
             default:
+                slot = 0;
                 break;
-
         }
         timerWait();
-
     }
 }

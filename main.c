@@ -1,6 +1,8 @@
 //Author: Thiago B. Araújo
-//Matricula: 2021032968                    PAREI NO BOILER, SEGUIR EXEMPLO DA TEMP
+//Matricula: 2021032968                    
+//UNIFEI, CAMPUS ITAJUBÁ
 
+//BIBLIOTECAS
 #include <proc/pic18f4520.h>
 #include "config.h"
 #include "bits.h"
@@ -10,26 +12,26 @@
 #include "keypad.h"
 #include "menu.h"
 #include "rgb.h"
-#include "ssd.h"
 #include "timer.h"
 #include "pwm.h"
-#include "adc.h"
 #include "io.h"
 
+//MAPEAMENTO LCD
 #define L_ON	0x0F
 #define L_OFF	0x08
 #define L_CLR	0x01
 #define L_L1	0x80
 #define L_L2	0xC0
+
+//QUANTIDADE DE MENUS
 #define menuMax 3
 
 //GLOBAIS
 char menuNum = 1, subMenu = 1;
 unsigned int pres = 15, temp = 250;
 unsigned char lev = 80;
-char flag;
 
-void InfBoiler(void) {
+void InfBoiler(void) {//INFORMACOES ADVINDAS DA CALDEIRA (AUMENTO OU DECRESCIMO DE GRANDEZAS)
     char cmd = serialRead();
 
     if (cmd != 0) {
@@ -41,7 +43,7 @@ void InfBoiler(void) {
 
             case 't':
                 serialSend('p');
-                if (temp >= 0) {
+                if (temp > 0) {
                     temp--;
                 }
                 break;
@@ -53,7 +55,7 @@ void InfBoiler(void) {
 
             case 'p':
                 serialSend('p');
-                if (pres >= 0) {
+                if (pres > 0) {
                     pres--;
                 }
                 break;
@@ -61,7 +63,7 @@ void InfBoiler(void) {
 
             case 'N':
                 serialSend('N');
-                if (lev >= 0) {
+                if (lev > 0) {
                     lev--;
                 }
                 break;
@@ -73,39 +75,25 @@ void InfBoiler(void) {
 
 }
 
-void status(void) {
-    if (pres > 20 || temp > 300) { //pressao ou temperatura fora do aceitavel
-        //flag = 0;
-        digitalWrite(DISP_1_PIN,HIGH);
-        ssdDigit(84, 0);
+void status(void) {//LIMITES E CONDICOES DAS GRADEZAS FISICAS, RGB E BUZZER
+    if (pres > 20 || temp > 300 || lev == 0) { //pressao ou temperatura fora do aceitavel   
+        PORTD = 0b00000001; //acende vermelho
         pwmSet(100);
     } else {
         pwmSet(0);
-        //flag = 1;
-        PORTD = 0b00000010; //acende verde
+        PORTD = 0b00000010; //acende verde          
     }
 }
 
-void vap(void) {
-    int v;
-    v = 15;
-
-    ssdDigit((v / 10) % 10, 2);
-    ssdDigit((v / 1) % 10, 3);
-}
-
 void main() {
-
     TRISD = 0x00;
-    char slot = 0;
+    char slot = 0, i;
 
     lcdInit();
     kpInit();
     serialInit();
     pwmInit();
     timerInit();
-    ssdInit();
-
 
     pwmSet(0);
     lcdString("Iniciando...");
@@ -114,17 +102,11 @@ void main() {
     lcdCommand(L_CLR);
 
     for (;;) {
-        
-        digitalWrite(DISP_1_PIN, LOW);
-        digitalWrite(DISP_2_PIN, LOW);
-        digitalWrite(DISP_3_PIN, LOW);
-        digitalWrite(DISP_4_PIN, LOW);
-        
-        timerReset(6500);
-        switch (slot) {
+        timerReset(3000);
+        switch (slot) {//DINAMINA CODIGO
             case 0:
                 leituraMenu();
-                switch (menuNum) {
+                switch (menuNum) {//CONTROLE DE MENUS E SUBMENUS
                     case 1:
                         menu1(subMenu);
                         menuCtrl(menuNum, subMenu);
@@ -156,21 +138,13 @@ void main() {
 
             case 3:
                 status();
-                slot = 4;
-                break;
-
-            case 4:
-                if (flag == 1) {
-                    vap();
-                }
                 slot = 0;
                 break;
 
             default:
+                slot = 0;
                 break;
-
         }
         timerWait();
-        //ssdUpdate();
     }//end for
 }

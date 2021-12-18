@@ -20,7 +20,7 @@ unsigned int aux, aux2;
 unsigned int pres, temp;
 unsigned char lev;
 
-void leituraMenu() {
+void leituraMenu() {//LEITURA E MOVIMENTACAO MENUS
     if (kpRead() != aux) {
         aux = kpRead();
         if (kpReadKey() != 0) {//se alguma tecla foi precionada
@@ -108,7 +108,7 @@ void menu3(char subMenu) {
     }
 }
 
-void menuCtrl(char menuNum, char subMenu) {
+void menuCtrl(char menuNum, char subMenu) {//CONTROLE TECLAS NO MENU
     if (kpRead() != aux2) {
         aux2 = kpRead(); 
         if (kpReadKey() != 0) {
@@ -144,7 +144,7 @@ void menuCtrl(char menuNum, char subMenu) {
                     }
                     break;
 
-                default:
+                default:                 
                     break;
             }
         }
